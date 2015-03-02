@@ -75,11 +75,6 @@ class PageResolver(RegexURLResolver):
     def _populate_subresolver(self, resolver, lookups, namespaces, apps):
         # XXX emulate part of _populate :/
 
-        lookups = MultiValueDict()
-        namespaces = {}
-        apps = {}
-        language_code = get_language()
-
         if hasattr(resolver, '_callback_str'):
             self._callback_strs.add(resolver._callback_str)
         elif hasattr(resolver, '_callback'):
