@@ -7,7 +7,7 @@ from .urlresolvers import PageResolver
 
 class URLConfWrapper:
     """
-    Mimicks a urls.py urlconf interface so RegexURLResolver can work with it
+    Mimics a urls.py urlconf interface so RegexURLResolver can work with it
     """
 
     def __init__(self, resolver):
@@ -16,19 +16,6 @@ class URLConfWrapper:
     @property
     def urlpatterns(self):
         return [self.resolver, ]
-
-
-def page_urls(page_model, app_name=None, namespace=None):
-    """
-    Include page urls as pattern.
-
-    Usage:
-
-    urlpatterns = [
-        page_urls(Page),
-    ]
-    """
-    return PageResolver(page_model, app_name=app_name, namespace=namespace)
 
 
 def include_pages(page_model, app_name=None, namespace=None):
@@ -41,4 +28,4 @@ def include_pages(page_model, app_name=None, namespace=None):
         url(r'^subpath/', include_pages(Page)),
     ]
     """
-    return URLConfWrapper(page_urls(page_model, app_name, namespace)), app_name, namespace
+    return URLConfWrapper(PageResolver(page_model, app_name, namespace)), app_name, namespace
